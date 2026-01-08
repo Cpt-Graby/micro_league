@@ -4,5 +4,6 @@
 
 [resource]
 albedo_texture = ExtResource("1_pj78u")
+metallic_specular = 0.0
 roughness_texture = ExtResource("1_pj78u")
 uv1_triplanar = true

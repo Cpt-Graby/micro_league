@@ -3893,9 +3893,20 @@ _data = {
 [node name="Player_base" type="CharacterBody3D"]
 script = ExtResource("1_a1fn8")
 
+[node name="camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.7071068, 0, -0.7071068, 0.70710677, 0, 6, 4)
+top_level = true
+current = true
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_vvnar")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="camera_marker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.7071068, 0, -0.7071068, 0.70710677, 0, 6, 4)
 
 [node name="visuals" type="Node3D" parent="."]
 
