@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dky2o4qbeluxx"]
+
+[ext_resource type="PackedScene" uid="uid://4j6m3cif0n2a" path="res://scene/maps/Simple_lane.tscn" id="1_itxqv"]
+
+[node name="Main" type="Node3D"]
+
+[node name="Simple_lane" parent="." instance=ExtResource("1_itxqv")]

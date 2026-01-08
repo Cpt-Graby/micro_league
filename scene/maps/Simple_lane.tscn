@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://cskmbe7egy0do" path="res://materials/floor_material.tres" id="1_rgtto"]
 [ext_resource type="Material" uid="uid://ivhiwq5uee8g" path="res://materials/wall_material.tres" id="2_wpp1k"]
 
-[node name="Map" type="Node3D"]
+[node name="Simple_lane" type="Node3D"]
 
 [node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004576683, 0, -0.039541245)
