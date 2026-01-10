@@ -24,6 +24,15 @@ While Summoner's Rift is roughly 16,000 x 16,000 units, the Howling Abyss (ARAM)
 Since I don't want to reproduse the hole map for now, ill just do a surface of:
 70m x 14m.
 
+## Charactere motion
+
+This part was pretty tricky for me. I had a lot of issue with the raycasting  
+for making the click and move.  
+HUGE shout out to: 
+	- [Youtube channel Lukky](https://www.youtube.com/watch?v=0T-FMkSru64&list=PPSV)
+	- [Gwizz tutorial](https://www.youtube.com/watch?v=mJRDyXsxT9g)  
+
+
 ### Note:
 Here are some links that i dont want to loose:
 https://github.com/abmarnie/godot-architecture-organization-advice

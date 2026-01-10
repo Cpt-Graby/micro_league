@@ -2,34 +2,59 @@ extends CharacterBody3D
 
 const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
-var target = Vector3.ZERO
+const FINISH_RADIUS = 0.3
+var walking = false
+var target_pos : Vector3 = Vector3.ZERO
 
-@onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var camera_3D: Camera3D = $"../Camera3D"
 @onready var ray_query = PhysicsRayQueryParameters3D.new()
-
+@onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
+@onready var visuals: Node3D = $visuals
+@onready var animation_player: AnimationPlayer = $visuals/player/AnimationPlayer
 
 var marker = preload("res://scene/marker.tscn")
 
 func _ready():
+	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	camera_3D.global_position = $camera_marker.global_position
+	camera_3D.look_at(transform.origin,Vector3.UP)
+	animation_player.set_blend_time("idle", "walk", 0.2)
+	animation_player.set_blend_time("walk", "ilde", 0.2)
 	pass
 
+
 func _physics_process(delta):
-	var next_path_point = $NavigationAgent3D.get_next_path_position()
-	var new_velocity = (next_path_point - global_position).normalized() * SPEED
-	velocity.x = new_velocity.x
-	velocity.z = new_velocity.z
+	# Do not query when the map has never synchronized and is empty.
+	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
+		return
+	if navigation_agent.is_navigation_finished():
+		if abs(target_pos.x - global_position.x) > FINISH_RADIUS or abs(target_pos.z - global_position.z) > FINISH_RADIUS:
+			var direction = target_pos - global_position
+			direction.y = 0
+			velocity.x = direction.x * SPEED
+			velocity.y = 0
+			velocity.z = direction.z * SPEED
+			move_and_slide()
+		else:
+			animation_player.play("idle")
+		return
+	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
+	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * SPEED
+	if navigation_agent.avoidance_enabled:
+		navigation_agent.set_velocity(new_velocity)
+	else:
+		visuals.look_at(new_velocity + position)
+		_on_velocity_computed(new_velocity)
+
+func _on_velocity_computed(safe_velocity: Vector3):
+	velocity = safe_velocity
+	animation_player.play("walk")
 	move_and_slide()
 
 func _process(delta: float) -> void:
 	camera_3D.global_position = $camera_marker.global_position
 	camera_3D.look_at(transform.origin,Vector3.UP)
 	pass
-
-func create_instance(given_position: Vector3) -> void:
-	var instance = marker.instantiate()
-	instance.position = given_position
-	$"..".add_child(instance)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -54,9 +79,10 @@ func move_to_click(event: InputEvent):
 	ray_query.from = from_mouse
 	ray_query.to = to
 	var raycast_result = space.intersect_ray(ray_query)
+	raycast_result.position.y = 0
+	target_pos = raycast_result.position
 	navigation_agent.set_target_position(raycast_result.position)
-	print("raycast res: ", raycast_result)
-
+	#print("raycast res: ", raycast_result)
 	#var from = camera_3D.project_ray_origin(event.position)
 	#var dir = camera_3D.project_local_ray_normal(event.position) 
 	#var dir2 = camera_3D.project_local_ray_normal(event.position) * ray_length
@@ -70,3 +96,9 @@ func move_to_click(event: InputEvent):
 	#print("dir: ", dir2, "--- Cursor2: ",Cursor_pos2)
 	#$NavigationAgent3D.target_position = Cursor_pos
 	pass
+
+
+func create_instance(given_position: Vector3) -> void:
+	var instance = marker.instantiate()
+	instance.position = given_position
+	$"..".add_child(instance)
