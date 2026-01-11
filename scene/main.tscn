@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dky2o4qbeluxx"]
+[gd_scene load_steps=7 format=3 uid="uid://dky2o4qbeluxx"]
 
 [ext_resource type="PackedScene" uid="uid://4j6m3cif0n2a" path="res://scene/maps/Simple_lane.tscn" id="1_itxqv"]
 [ext_resource type="PackedScene" uid="uid://ntmb18ykvd7m" path="res://scene/players/player_base.tscn" id="2_v0l8b"]
+[ext_resource type="Script" uid="uid://cjpx0nmnutdsv" path="res://src/simple_lane.gd" id="3_brvut"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v0l8b"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -26,9 +27,12 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Simple_lane" parent="." instance=ExtResource("1_itxqv")]
+script = ExtResource("3_brvut")
 
 [node name="Player_base" parent="." instance=ExtResource("2_v0l8b")]
 transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5, 0)
+
+[node name="Timer" type="Timer" parent="."]

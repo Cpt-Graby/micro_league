@@ -32,7 +32,14 @@ HUGE shout out to:
 	- [Youtube channel Lukky](https://www.youtube.com/watch?v=0T-FMkSru64&list=PPSV)
 	- [Gwizz tutorial](https://www.youtube.com/watch?v=mJRDyXsxT9g)  
 
+## Tasks:
+	- Minions
+	- Adding auto attacks
+	- HUD
 
+## Bugs:
+	- Sliding charactere
+	
 ### Note:
 Here are some links that i dont want to loose:
 https://github.com/abmarnie/godot-architecture-organization-advice
