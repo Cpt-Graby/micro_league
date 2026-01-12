@@ -32,6 +32,17 @@ HUGE shout out to:
 	- [Youtube channel Lukky](https://www.youtube.com/watch?v=0T-FMkSru64&list=PPSV)
 	- [Gwizz tutorial](https://www.youtube.com/watch?v=mJRDyXsxT9g)  
 
+For the path navigation we used the `navigation agent`, an implemented the 
+algorithm of the [main documentation](docs.godotengine.org/en/stable/tutorials/navigation/navigation_using_navigationagents.html).
+We had to add some aditional function so that charactere stop the motion right
+in front of the destination and not just at reach.
+
+
+## Base Minions
+
+The basic implementation of the minion went easier then expected, since we used
+a `navigation agent` as same as for the player.
+
 ## Tasks:
 	- Minions
 	- Adding auto attacks
