@@ -18,6 +18,5 @@ shape = SubResource("CylinderShape3D_oltgi")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
-radius = 0.25
 avoidance_priority = 0.5
 debug_enabled = true

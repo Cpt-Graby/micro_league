@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://4j6m3cif0n2a"]
+[gd_scene load_steps=5 format=3 uid="uid://4j6m3cif0n2a"]
 
+[ext_resource type="Script" uid="uid://cjpx0nmnutdsv" path="res://src/simple_lane.gd" id="1_niwxk"]
 [ext_resource type="Material" uid="uid://cskmbe7egy0do" path="res://materials/floor_material.tres" id="1_rgtto"]
 [ext_resource type="Material" uid="uid://ivhiwq5uee8g" path="res://materials/wall_material.tres" id="2_wpp1k"]
 
@@ -9,6 +10,7 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [node name="Simple_lane" type="NavigationRegion3D"]
 navigation_mesh = SubResource("NavigationMesh_oltvt")
+script = ExtResource("1_niwxk")
 
 [node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, -0.1, -0.04)

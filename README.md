@@ -42,6 +42,8 @@ in front of the destination and not just at reach.
 
 The basic implementation of the minion went easier then expected, since we used
 a `navigation agent` as same as for the player.
+Some parameter are necessary to avoid the player, like `Avoidance Enabled` and 
+a toying a bit with the Radius of the Avoidance. 
 
 ## Tasks:
 	- Minions
