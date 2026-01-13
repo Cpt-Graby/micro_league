@@ -13,6 +13,7 @@ var unit_per_wave = 3
 
 var unit_scene := preload("res://scene/minion.tscn")
 
+
 func _ready():
 	time_spawn_next_wave = 0.0
 	pass
@@ -26,15 +27,6 @@ func _process(delta: float) -> void:
 		time_spawn_next_wave = wave_interval
 	pass
 
-
-func basic_spawn_waves():
-	spawn_unit("blue")
-	spawn_unit("red")
-	spawn_unit("blue")
-	spawn_unit("red")
-	spawn_unit("blue")
-	spawn_unit("red")
-	pass
 
 func spawn_waves()->void:
 	var unit_spwan = unit_per_wave
