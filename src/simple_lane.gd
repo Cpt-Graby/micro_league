@@ -4,7 +4,7 @@ var wave_interval : float = 10.0  # en secondes
 var unit_interval : float = 1.0
 var time_spawn_next_wave : float
 
-var unit_per_wave = 3
+var unit_per_wave = 1
 
 @onready var spawn_blue: Marker3D = $Spawner_blue
 @onready var spawn_red: Marker3D = $Spawner_red
