@@ -8,7 +8,6 @@
 
 [node name="Minion" type="CharacterBody3D"]
 script = ExtResource("1_f4vs5")
-movement_speed = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_w23df")
