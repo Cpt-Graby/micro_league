@@ -12,10 +12,9 @@ script = ExtResource("1_f4vs5")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_w23df")
 
-[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
-
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
+radius = 0.7
 avoidance_priority = 0.5
 debug_enabled = true
 

@@ -40,7 +40,7 @@ func spawn_waves()->void:
 
 func spawn_unit(team_color : String) -> void:
 	var unit := unit_scene.instantiate()
-	unit.team = team_color
-	unit.global_transform.origin = spawn_blue.global_transform.origin if unit.team == "blue" else spawn_red.global_transform.origin
-	unit.target_position = target_blue.global_transform.origin if unit.team == "blue" else target_red.global_transform.origin
+	unit.g_team = team_color
+	unit.global_transform.origin = spawn_blue.global_transform.origin if unit.g_team == "blue" else spawn_red.global_transform.origin
+	unit.g_target_spawn = target_blue.global_transform.origin if unit.g_team == "blue" else target_red.global_transform.origin
 	add_child(unit)
