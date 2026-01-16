@@ -45,6 +45,10 @@ a `navigation agent` as same as for the player.
 Some parameter are necessary to avoid the player, like `Avoidance Enabled` and 
 a toying a bit with the Radius of the Avoidance. 
 
+## attack
+https://www.youtube.com/watch?v=74XywaLGO5Q
+https://www.youtube.com/watch?v=hyxJaUXpMyE
+
 ## Tasks:
 	- Minions
 	- Adding auto attacks

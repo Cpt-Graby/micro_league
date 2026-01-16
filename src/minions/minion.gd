@@ -28,9 +28,8 @@ var g_attack_speed : float = 1.25
 var g_attack_dmg : int = 21
 var g_armor :float = 0
 var g_magic_resit :float = 0
+var g_time_last_attack = 0
 
-func _init() -> void:
-	pass
 
 func _ready() -> void:
 
@@ -70,26 +69,28 @@ func get_index_closest_enemy(enemy_distance_list : Array)-> int:
 			index_closest = i
 	return index_closest
 
-
-func _physics_process(delta):
-	physics_delta = delta
-	if g_team == "" or g_target_spawn == Vector3.ZERO:
-		return
-	
-	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
-		return
-	
-	if g_target_enemy and g_target_locked == true and g_team == 'blue':
-		#print("TARGET_LOCKED: ", g_target_enemy)
+func _process(delta):
+	g_time_last_attack += delta
+	if g_target_enemy and g_target_locked == true:
 		if dist_in_ranged_self(g_target_enemy.position) <= g_attack_range:
 			set_movement_target(global_position)
+			if g_time_last_attack > g_attack_speed:
+				_attack()
+				g_time_last_attack = 0
 		else:
 			set_movement_target(g_target_enemy.position)
 	else:
 		g_target_locked = false
 		if navigation_agent.target_position != g_target_spawn:
 			set_movement_target(g_target_spawn)
-	
+
+
+
+func _physics_process(delta):
+	physics_delta = delta	
+	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
+		return
+
 	var dist_to_spawn_target = sqrt((g_target_spawn.x - global_position.x)**2 + (g_target_spawn.z - global_position.z)**2)
 	if navigation_agent.is_navigation_finished():
 		return
@@ -122,3 +123,14 @@ func _physics_process(delta):
 		#print("new_velocity set")
 	else:
 		_on_velocity_computed(new_velocity)
+
+func _attack():
+	if !g_target_enemy:
+		return
+	g_target_enemy.take_damage(g_attack_dmg)
+
+func take_damage(amount : int):
+	print("I'm hit, i have only : ", g_health, " left")
+	g_health -= amount
+	if g_health <= 0:
+		queue_free()

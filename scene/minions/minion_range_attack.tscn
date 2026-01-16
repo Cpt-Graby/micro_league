@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b26refok7v0mo"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_klph8"]
+
+[node name="MinionRangeAttack" type="Area3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_klph8")

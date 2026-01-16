@@ -11,7 +11,7 @@ var unit_per_wave = 2
 @onready var target_red: Marker3D = $Target_red
 @onready var target_blue: Marker3D = $Target_blue
 
-var unit_scene := preload("res://scene/minion.tscn")
+var unit_scene := preload("res://scene/minions/minion.tscn")
 
 func _ready():
 	time_spawn_next_wave = 0.0
