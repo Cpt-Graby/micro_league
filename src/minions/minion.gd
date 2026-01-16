@@ -1,12 +1,11 @@
 extends CharacterBody3D
 
 @export var movement_speed: float = 3.0
-@onready var mesh_instance_3d: MeshInstance3D = $CollisionShape3D/MeshInstance3D
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 var physics_delta: float
 
 # ALL MY BOOL
-var debug_minion = true
+var debug_minion = false
 var printed = false
 var g_target_locked = false
 
@@ -18,20 +17,23 @@ var walking_to_target = false
 
 # Running war 
 var my_node : Node3D
-var g_target_enemy : CharacterBody3D
+@onready var g_target_enemy: CharacterBody3D = $"."
 
 # Standard value of minion 
-
 var g_team := ""  # "blue" or "red"
 var g_target_spawn := Vector3.ZERO
-var g_heath :  int = 465
+var g_health :  int = 465
 var g_attack_range : float = 1.500  
 var g_attack_speed : float = 1.25
 var g_attack_dmg : int = 21
 var g_armor :float = 0
 var g_magic_resit :float = 0
 
+func _init() -> void:
+	pass
+
 func _ready() -> void:
+
 	my_node = get_node(".")
 	add_to_group("minions")
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -58,7 +60,6 @@ func dist_in_ranged_self(location_position: Vector3) -> float:
 
 
 func get_index_closest_enemy(enemy_distance_list : Array)-> int:
-	print(enemy_distance_list)
 	if len(enemy_distance_list) == 0:
 		return -1
 	var index_closest : int = 0
@@ -78,24 +79,27 @@ func _physics_process(delta):
 	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
 		return
 	
-	if g_target_locked == true:
-		print("TARGET_LOCKED: ", g_target_enemy)
-		print("dist: ", dist_in_ranged_self(g_target_enemy.position))
+	if g_target_enemy and g_target_locked == true and g_team == 'blue':
+		#print("TARGET_LOCKED: ", g_target_enemy)
 		if dist_in_ranged_self(g_target_enemy.position) <= g_attack_range:
 			set_movement_target(global_position)
 		else:
 			set_movement_target(g_target_enemy.position)
-	
-		
-	if navigation_agent.is_navigation_finished():
-		print("Nav finished")
-		return
+	else:
+		g_target_locked = false
+		if navigation_agent.target_position != g_target_spawn:
+			set_movement_target(g_target_spawn)
 	
 	var dist_to_spawn_target = sqrt((g_target_spawn.x - global_position.x)**2 + (g_target_spawn.z - global_position.z)**2)
-	if dist_to_spawn_target < .0:
+	if navigation_agent.is_navigation_finished():
+		return
+	
+	if dist_to_spawn_target < 3:
+		g_health = -100
+		await get_tree().create_timer(1.0).timeout
 		queue_free()
 		return
-
+	
 	# Determining it we need to attack minion
 	var all_minions = get_tree().get_nodes_in_group("minions")
 	var minions_in_range_dist : Array
@@ -107,7 +111,7 @@ func _physics_process(delta):
 			minions_in_range_dist.append(dist_to_minion)
 			minions_in_range.append(minion)
 	# Now we want to determine the if we have to set a target
-	if len(minions_in_range) > 0:
+	if len(minions_in_range) > 0 and g_target_locked == false:
 		g_target_enemy = minions_in_range[get_index_closest_enemy(minions_in_range_dist)]
 		g_target_locked = true
 	

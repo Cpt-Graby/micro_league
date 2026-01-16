@@ -14,8 +14,7 @@ mesh = SubResource("CapsuleMesh_w23df")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
-radius = 0.7
-avoidance_priority = 0.5
+avoidance_priority = 0.3
 debug_enabled = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

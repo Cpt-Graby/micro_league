@@ -2,11 +2,10 @@ extends CharacterBody3D
 
 const SPEED = 30.0
 const JUMP_VELOCITY = 4.5
-const FINISH_RADIUS = 0.3
+const FINISH_RADIUS = 0.8
 var walking = false
 var target_pos : Vector3 = Vector3.ZERO
 var physics_delta: float
-
 
 @onready var camera_3D: Camera3D = $"../Camera3D"
 @onready var ray_query = PhysicsRayQueryParameters3D.new()
@@ -18,8 +17,9 @@ func _ready():
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	camera_3D.global_position = $camera_marker.global_position
 	camera_3D.look_at(transform.origin,Vector3.UP)
+	animation_player.play("idle")
 	animation_player.set_blend_time("idle", "walk", 0.2)
-	animation_player.set_blend_time("walk", "ilde", 0.2)
+	animation_player.set_blend_time("walk", "idle", 0.2)
 	pass
 
 
@@ -56,9 +56,10 @@ func _physics_process(delta):
 		_on_velocity_computed(new_velocity)
 
 func _on_velocity_computed(safe_velocity: Vector3):
-	walking = true
+	if safe_velocity != Vector3.ZERO:
+		walking = true
+		animation_player.play("walk")
 	velocity = safe_velocity
-	animation_player.play("walk")
 	move_and_slide()
 
 func _process(delta: float) -> void:
