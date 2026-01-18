@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://djim165wovgjp"]
+[gd_scene load_steps=6 format=3 uid="uid://djim165wovgjp"]
 
 [ext_resource type="Script" uid="uid://cowuw4a0amja6" path="res://src/minions/minion.gd" id="1_f4vs5"]
+[ext_resource type="PackedScene" uid="uid://c0yipfdgf3mcm" path="res://scene/minions/health_bar.tscn" id="2_1qbed"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_w23df"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_oltgi"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1qbed"]
+viewport_path = NodePath("SubViewport")
 
 [node name="Minion" type="CharacterBody3D"]
 script = ExtResource("1_f4vs5")
@@ -19,3 +23,8 @@ debug_enabled = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_oltgi")
+
+[node name="HealthBar" parent="." instance=ExtResource("2_1qbed")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.450057, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_1qbed")

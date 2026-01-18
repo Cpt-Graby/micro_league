@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+@onready var health_bar: ProgressBar = $HealthBar/SubViewport/ProgressBar
 @export var movement_speed: float = 3.0
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 var physics_delta: float
@@ -23,6 +24,7 @@ var my_node : Node3D
 var g_team := ""  # "blue" or "red"
 var g_target_spawn := Vector3.ZERO
 var g_health :  int = 465
+var g_max_health: int = 465
 var g_attack_range : float = 1.500  
 var g_attack_speed : float = 1.25
 var g_attack_dmg : int = 21
@@ -32,7 +34,8 @@ var g_time_last_attack = 0
 
 
 func _ready() -> void:
-
+	health_bar.max_value = g_max_health
+	health_bar.value = g_health
 	my_node = get_node(".")
 	add_to_group("minions")
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -130,7 +133,7 @@ func _attack():
 	g_target_enemy.take_damage(g_attack_dmg)
 
 func take_damage(amount : int):
-	print("I'm hit, i have only : ", g_health, " left")
 	g_health -= amount
+	health_bar.value = g_health
 	if g_health <= 0:
 		queue_free()

@@ -47,6 +47,8 @@ a toying a bit with the Radius of the Avoidance.
 
 ## attack
 https://www.youtube.com/watch?v=74XywaLGO5Q
+health bar: 
+[gdquest lifebar code](https://www.youtube.com/watch?v=PLcfekxtYlA)
 https://www.youtube.com/watch?v=hyxJaUXpMyE
 
 ## Tasks:
