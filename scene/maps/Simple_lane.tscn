@@ -13,7 +13,7 @@ navigation_mesh = SubResource("NavigationMesh_oltvt")
 script = ExtResource("1_niwxk")
 
 [node name="Floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, -0.1, -0.04)
+transform = Transform3D(1, 0, 0, 0, 100, 0, 0, 0, 1, 0.005, -10, 0)
 material_override = ExtResource("1_rgtto")
 use_collision = true
 size = Vector3(14, 0.2, 70)
@@ -26,18 +26,19 @@ size = Vector3(0.5, 2, 70)
 
 [node name="Right_wall" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.50056386, 0)
+visible = false
 material_override = ExtResource("2_wpp1k")
 use_collision = true
 size = Vector3(0.5, 1, 70)
 
 [node name="Spawner_blue" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -10)
 
 [node name="Target_red" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -10)
 
 [node name="Target_blue" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 10)
 
 [node name="Spawner_red" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 10)
