@@ -107,7 +107,6 @@ func _process(delta):
 	if g_target_enemy and g_target_locked == true:
 		if dist_in_ranged_self(g_target_enemy.position) <= g_attack_range:
 			set_movement_target(global_position)
-			navigation_agent.target_reached
 			if g_time_last_attack > g_attack_speed:
 				_attack()
 				g_time_last_attack = 0

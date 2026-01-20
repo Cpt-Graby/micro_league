@@ -1,6 +1,6 @@
 extends NavigationRegion3D
 
-var wave_interval : float = 10.0  # en secondes
+var wave_interval : float = 30.0  # en secondes
 var unit_interval : float = 1.0
 var time_spawn_next_wave : float
 
