@@ -14,6 +14,7 @@ var physics_delta: float
 @onready var animation_player: AnimationPlayer = $visuals/player/AnimationPlayer
 
 func _ready():
+	global_position = Vector3.ZERO
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	camera_3D.global_position = $camera_marker.global_position
 	camera_3D.look_at(transform.origin,Vector3.UP)
@@ -55,6 +56,7 @@ func _physics_process(delta):
 	else:
 		_on_velocity_computed(new_velocity)
 
+
 func _on_velocity_computed(safe_velocity: Vector3):
 	if safe_velocity != Vector3.ZERO:
 		walking = true
@@ -62,11 +64,13 @@ func _on_velocity_computed(safe_velocity: Vector3):
 	velocity = safe_velocity
 	move_and_slide()
 
+
 func _process(delta: float) -> void:
 	physics_delta = delta
 	camera_3D.global_position = $camera_marker.global_position
 	camera_3D.look_at(transform.origin,Vector3.UP)
 	pass
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -86,7 +90,14 @@ func move_to_click():
 	if (raycast_result.is_empty()):
 		## TODO: find the intersection of the map and the last point
 		return
-	raycast_result.position.y = 0
-	target_pos = raycast_result.position
-	navigation_agent.set_target_position(raycast_result.position)
-	pass
+	if raycast_result.collider.is_in_group("minions"):
+		var minion = raycast_result.collider
+		minion.g_team
+		print(minion.g_team)
+		print("J'ai cliqué sur un minion !")
+
+	if raycast_result.collider.name == "Floor":
+		raycast_result.position.y = 0
+		target_pos = raycast_result.position
+		navigation_agent.set_target_position(raycast_result.position)
+	return
