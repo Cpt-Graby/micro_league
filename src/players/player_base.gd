@@ -1,11 +1,23 @@
 extends CharacterBody3D
 
-const SPEED = 30.0
+const movement_speed = 30.0
 const JUMP_VELOCITY = 4.5
 const FINISH_RADIUS = 0.8
 var walking = false
 var target_pos : Vector3 = Vector3.ZERO
 var physics_delta: float
+
+	# Standard value of minion 
+var g_team := ""  # "blue" or "red"
+var g_target_spawn := Vector3.ZERO
+var g_health :  int = 465
+var g_max_health: int = 465
+var g_attack_range : float = 2.500  
+var g_attack_speed : float = 1.25
+var g_attack_dmg : int = 21
+var g_armor :float = 0
+var g_magic_resit :float = 0
+var g_time_last_attack = 0
 
 @onready var camera_3D: Camera3D = $"../Camera3D"
 @onready var ray_query = PhysicsRayQueryParameters3D.new()
@@ -13,7 +25,23 @@ var physics_delta: float
 @onready var visuals: Node3D = $visuals
 @onready var animation_player: AnimationPlayer = $visuals/player/AnimationPlayer
 
+func init_stats() -> void:
+	# Standard value of minion 
+	g_team = "red"
+	g_target_spawn = Vector3.ZERO
+	g_health = 465
+	g_max_health = 465
+	g_attack_range = 2.500  
+	g_attack_speed = 1.25
+	g_attack_dmg = 21
+	g_armor = 0
+	g_magic_resit = 0
+	g_time_last_attack = 0
+	pass
+
+
 func _ready():
+	init_stats()
 	global_position = Vector3.ZERO
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	camera_3D.global_position = $camera_marker.global_position
@@ -21,6 +49,7 @@ func _ready():
 	animation_player.play("idle")
 	animation_player.set_blend_time("idle", "walk", 0.2)
 	animation_player.set_blend_time("walk", "idle", 0.2)
+	init_stats()
 	pass
 
 
@@ -40,16 +69,16 @@ func _physics_process(delta):
 				animation_player.play("walk")
 			var direction = target_pos - global_position
 			direction.y = 0
-			velocity.x = direction.x * SPEED
+			velocity.x = direction.x * movement_speed
 			velocity.y = 0
-			velocity.z = direction.z * SPEED
+			velocity.z = direction.z * movement_speed
 			move_and_slide()
 		else:
 			walking = false
 			animation_player.play("idle")
 		return
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
-	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * SPEED
+	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * movement_speed
 	visuals.look_at(new_velocity + position)
 	if navigation_agent.avoidance_enabled:
 		navigation_agent.set_velocity(new_velocity)
@@ -92,8 +121,6 @@ func move_to_click():
 		return
 	if raycast_result.collider.is_in_group("minions"):
 		var minion = raycast_result.collider
-		minion.g_team
-		print(minion.g_team)
 		print("J'ai cliqué sur un minion !")
 
 	if raycast_result.collider.name == "Floor":

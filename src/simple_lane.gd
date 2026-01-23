@@ -8,12 +8,17 @@ var unit_per_wave = 2
 
 @onready var spawn_blue: Marker3D = $Spawner_blue
 @onready var spawn_red: Marker3D = $Spawner_red 
-@onready var target_red: Marker3D = $Target_red
-@onready var target_blue: Marker3D = $Target_blue
+var target_red : Vector3 
+var target_blue : Vector3
+
+
 
 var unit_scene := preload("res://scene/minions/minion.tscn")
 
 func _ready():
+	target_blue = spawn_red.global_position
+	target_red = spawn_blue.global_position
+	print("target_blue:", target_blue)
 	time_spawn_next_wave = 0.0
 	pass
 
@@ -40,7 +45,10 @@ func spawn_waves()->void:
 func spawn_unit(team_color : String) -> void:
 	var unit := unit_scene.instantiate()
 	unit.g_team = team_color
-	unit.g_target_spawn = target_blue.global_transform.origin if unit.g_team == "blue" else target_red.global_transform.origin
+	unit.g_target_spawn = target_blue if unit.g_team == "blue" else target_red
+	print("spawn_unit: ", target_blue)
+	print("g_target_spawn: ", unit.g_target_spawn)
+
 	unit.position = spawn_blue.global_transform.origin if unit.g_team == "blue" else spawn_red.global_transform.origin
 
 	add_child(unit)

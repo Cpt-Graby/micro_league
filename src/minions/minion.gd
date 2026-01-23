@@ -36,16 +36,30 @@ var g_time_last_attack = 0
 func _ready() -> void:
 	my_node = get_node(".")
 	add_to_group("minions")
-	health_bar.max_value = g_max_health
-	health_bar.value = g_health
+	init_stat_melee()
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	set_movement_target(g_target_spawn)
-	
 	if debug_minion == true:
 		print("g_team:", g_team)
 		print("g_target_spawn: ", g_target_spawn)
+		print("g_health: ", g_health)
+		print("g_max_health: ", g_max_health)
 		print(navigation_agent.target_position)
 		print(position)
+
+
+func init_stat_melee() -> void:
+	# Standard value of minion 
+	g_max_health = 465
+	g_health = g_max_health
+	health_bar.value = g_health
+	g_attack_range = 2.500  
+	g_attack_speed = 1.25
+	g_attack_dmg = 21
+	g_armor = 0
+	g_magic_resit = 0
+	g_time_last_attack = 0
+	pass
 
 
 func set_movement_target(movement_target: Vector3):
@@ -97,7 +111,7 @@ func _attack():
 
 func take_damage(amount : int):
 	g_health -= amount
-	health_bar.value = g_health
+	health_bar.value = (g_health*100/g_max_health)
 	if g_health <= 0:
 		queue_free()
 
@@ -128,7 +142,6 @@ func _physics_process(delta):
 	var dist_to_spawn_target = sqrt((g_target_spawn.x - global_position.x)**2 + (g_target_spawn.z - global_position.z)**2)
 	if navigation_agent.is_navigation_finished():
 		return
-	
 	if dist_to_spawn_target < 3:
 		g_health = -100
 		await get_tree().create_timer(1.0).timeout
