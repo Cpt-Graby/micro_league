@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="micro_league"
-run/main_scene="uid://dky2o4qbeluxx"
+run/main_scene="uid://1aknbswywv7m"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

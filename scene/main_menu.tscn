@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://1aknbswywv7m"]
+
+[ext_resource type="Script" uid="uid://dg3tect7n7vtv" path="res://src/main_menu.gd" id="1_3er1b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4svf"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = -1.0
+offset_right = 21.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3er1b")
+
+[node name="Start spacing" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_right = 100.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0.03137255, 0.039215688, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_m4svf")
+text = "Start spacing Training"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 40.0
+offset_right = 100.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0.03137255, 0.039215688, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_m4svf")
+text = "Quit
+"
+
+[node name="Micro_league" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.5
+offset_top = -91.5
+offset_right = 80.5
+offset_bottom = -68.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Micro League trainer"
+
+[connection signal="pressed" from="Start spacing" to="." method="_on_start_spacing_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
