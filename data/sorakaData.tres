@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ChampionData" load_steps=2 format=3 uid="uid://bosim4nydc7ke"]
+
+[ext_resource type="Script" uid="uid://cb5dq38in3rbh" path="res://data/championData.gd" id="1_0na0v"]
+
+[resource]
+script = ExtResource("1_0na0v")
+hp = 560.0
+hp_incr = 109.0
+mp = 480.0
+mp_incr = 38.0
+hp_regen = 5.5
+hp_regen_incr = 0.55
+mp_regen = 8.0
+mp_regen_incr = 0.8
+ar = 19.0
+ar_incr = 5.2
+ad = 54.0
+ad_incr = 3.3
+mr = 30.0
+mr_incr = 1.3
+crit_dmg = 175.0
+ms = 330.0
+attack_range = 550.0
+base_as = 0.669
+windup_percent = 0.15
+as_ratio = 0.669
+missile_speed = 1200.0
+gameplay_radius = 65.0
+select_radius = 100.0
+pathing_radius = 30.0
+select_height = 120.0
+acq_radius = 800.0
+metadata/_custom_type_script = "uid://cb5dq38in3rbh"

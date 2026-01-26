@@ -7,7 +7,7 @@ var physics_delta: float
 
 	# Standard value of minion 
 var g_team := ""  # "blue" or "red"
-var g_movement_speed = 30.0
+var g_movement_speed = 3.0
 var g_target_spawn := Vector3.ZERO
 var g_health :  int = 465
 var g_max_health: int = 465
@@ -17,6 +17,9 @@ var g_attack_dmg : int = 21
 var g_armor :float = 0
 var g_magic_resit :float = 0
 var g_time_last_attack = 0
+
+var timer_move : float = 0.0
+var next_move_delay : float = 1.0 
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var visuals: Node3D = $visuals
@@ -39,7 +42,6 @@ func init_stats() -> void:
 
 func _ready():
 	init_stats()
-	global_position = Vector3.ZERO
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	animation_player.play("idle")
 	animation_player.set_blend_time("idle", "walk", 0.2)
@@ -47,9 +49,17 @@ func _ready():
 	init_stats()
 	pass
 
+func get_random_position(radius: float) -> Vector3:
+	var random_x = randf_range(-radius, radius)
+	var random_z = randf_range(-radius, radius)
+	return Vector3(random_x, 0, random_z)
 
-func _on_navigation_agent_3d_target_reached() -> void:
-	pass # Replace with function body.
+func _on_velocity_computed(safe_velocity: Vector3):
+	if safe_velocity != Vector3.ZERO:
+		walking = true
+		animation_player.play("walk")
+	velocity = safe_velocity
+	move_and_slide()
 
 
 func _physics_process(delta):
@@ -69,14 +79,15 @@ func _physics_process(delta):
 		_on_velocity_computed(new_velocity)
 
 
-func _on_velocity_computed(safe_velocity: Vector3):
-	if safe_velocity != Vector3.ZERO:
-		walking = true
-		animation_player.play("walk")
-	velocity = safe_velocity
-	move_and_slide()
-
-
 func _process(delta: float) -> void:
 	physics_delta = delta
+	timer_move += physics_delta
+	if timer_move >= next_move_delay:
+		var new_position = get_random_position(10)
+		navigation_agent.target_position = new_position
+		#print("velo: ",navigation_agent.velocity)
+		#print("target_position: ", navigation_agent.target_position)
+		timer_move = 0.0
+		next_move_delay = randf_range(1.0, 4.0)
+		#print(position)
 	pass

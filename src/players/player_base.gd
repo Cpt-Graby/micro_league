@@ -1,11 +1,12 @@
 extends CharacterBody3D
 
-const movement_speed = 30.0
 const JUMP_VELOCITY = 4.5
-const FINISH_RADIUS = 0.8
+const FINISH_RADIUS = 0.5
 var walking = false
 var target_pos : Vector3 = Vector3.ZERO
 var physics_delta: float
+
+var stats : ChampionData = preload("res://data/sorakaData.tres")
 
 	# Standard value of minion 
 var g_team := ""  # "blue" or "red"
@@ -17,6 +18,8 @@ var g_attack_dmg : int = 21
 var g_armor :float = 0
 var g_magic_resit :float = 0
 var g_time_last_attack = 0
+var g_movement_speed = 3.0
+
 
 @onready var camera_3D: Camera3D = $"../Camera3D"
 @onready var ray_query = PhysicsRayQueryParameters3D.new()
@@ -26,6 +29,10 @@ var g_time_last_attack = 0
 
 
 func _ready():
+	print(stats)
+	
+	if stats:
+		print("je joue : ", stats.ms)
 	await get_tree().physics_frame
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	camera_3D.global_position = $camera_marker.global_position
@@ -54,11 +61,11 @@ func init_stats() -> void:
 	g_armor = 0
 	g_magic_resit = 0
 	g_time_last_attack = 0
+	target_pos = position
 	pass
 
 
 func move_to_click():
-	print("here")
 	var ray_length = 10000
 	var space = get_world_3d().direct_space_state
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -92,24 +99,25 @@ func _physics_process(delta):
 	physics_delta = delta
 	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
 		return
-	if navigation_agent.is_navigation_finished() and walking == true:
+	if navigation_agent.is_navigation_finished():
 		if abs(target_pos.x - global_position.x) > FINISH_RADIUS or abs(target_pos.z - global_position.z) > FINISH_RADIUS:
 			if !walking:
 				walking = true
 				animation_player.play("walk")
 			var direction = target_pos - global_position
 			direction.y = 0
-			velocity.x = direction.x * movement_speed
+			velocity.x = direction.x * g_movement_speed
 			velocity.y = 0
-			velocity.z = direction.z * movement_speed
+			velocity.z = direction.z * g_movement_speed
 			move_and_slide()
 		else:
 			walking = false
 			animation_player.play("idle")
 		return
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
-	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * movement_speed
-	visuals.look_at(new_velocity + position)
+	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * g_movement_speed
+	if walking == true:
+		visuals.look_at(new_velocity + position )
 	if navigation_agent.avoidance_enabled:
 		navigation_agent.set_velocity(new_velocity)
 	else:
