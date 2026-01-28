@@ -23,6 +23,7 @@ func _ready():
 	type = "base"
 	await get_tree().physics_frame
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	navigation_agent.set_target_position(position)
 	animation_player.play("idle")
 	animation_player.set_blend_time("idle", "walk", 0.2)
 	animation_player.set_blend_time("walk", "idle", 0.2)
