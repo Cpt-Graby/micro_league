@@ -3,10 +3,10 @@ extends Resource
 class_name ChampionData
 
 @export_group("Stats")
-@export var hp: float 
-@export var hp_incr: float
-@export var mp: float
-@export var mp_incr: float
+@export var hp: int 
+@export var hp_incr: int
+@export var mp: int
+@export var mp_incr: int
 @export var hp_regen: float 
 @export var hp_regen_incr: float 
 @export var mp_regen: float 

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b71cx6s8jeioy" path="res://scene/maps/spacing_lane.tscn" id="1_j1ndk"]
 [ext_resource type="PackedScene" uid="uid://ntmb18ykvd7m" path="res://scene/players/player_base.tscn" id="2_bw2xm"]
-[ext_resource type="PackedScene" uid="uid://de7pe11swhrim" path="res://scene/champions/champion_base_bot.tscn" id="3_1020f"]
+[ext_resource type="PackedScene" uid="uid://de7pe11swhrim" path="res://scene/champions/bot_controler.tscn" id="3_1020f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v0l8b"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

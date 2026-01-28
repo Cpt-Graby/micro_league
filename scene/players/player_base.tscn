@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=4 uid="uid://ntmb18ykvd7m"]
 
-[ext_resource type="Script" uid="uid://65vat1s0h1mk" path="res://src/players/player_base.gd" id="1_a1fn8"]
+[ext_resource type="Script" uid="uid://65vat1s0h1mk" path="res://src/players/player_champ_controler.gd" id="1_a1fn8"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vvnar"]
 

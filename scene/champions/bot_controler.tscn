@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=4 uid="uid://de7pe11swhrim"]
 
-[ext_resource type="Script" uid="uid://nn6s5o8pwh5e" path="res://src/players/champion_base_bot.gd" id="1_r5c2a"]
+[ext_resource type="Script" uid="uid://nn6s5o8pwh5e" path="res://src/players/bot_champ_controler.gd" id="1_qiyc0"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vvnar"]
 
@@ -3891,7 +3891,7 @@ _data = {
 }
 
 [node name="champion_base_bot" type="CharacterBody3D"]
-script = ExtResource("1_r5c2a")
+script = ExtResource("1_qiyc0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
