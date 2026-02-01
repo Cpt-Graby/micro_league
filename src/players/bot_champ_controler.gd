@@ -57,7 +57,7 @@ func _process(delta: float) -> void:
 		navigation_agent.set_target_position(new_position)
 		timer_move = 0.0
 		next_state_delay = randf_range(1.0, 4.0)
-		print_state()
+		#print_state()
 	pass
 
 func _on_navigation_agent_3d_target_reached():
@@ -65,3 +65,7 @@ func _on_navigation_agent_3d_target_reached():
 	var new_position = get_next_position(state, delta_pos, init_point, Vector3(0,0,10))
 	navigation_agent.set_target_position(new_position)
 	pass
+
+
+func _on_game_timer_timeout() -> void:
+	pass # Replace with function body.

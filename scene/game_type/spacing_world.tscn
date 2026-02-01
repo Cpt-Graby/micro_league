@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bk4aartny6sr4"]
+[gd_scene load_steps=9 format=3 uid="uid://bk4aartny6sr4"]
 
 [ext_resource type="PackedScene" uid="uid://b71cx6s8jeioy" path="res://scene/maps/spacing_lane.tscn" id="1_j1ndk"]
 [ext_resource type="PackedScene" uid="uid://ntmb18ykvd7m" path="res://scene/players/player_base.tscn" id="2_bw2xm"]
 [ext_resource type="PackedScene" uid="uid://de7pe11swhrim" path="res://scene/champions/bot_controler.tscn" id="3_1020f"]
+[ext_resource type="Script" uid="uid://c3wlvxvnnt7ih" path="res://src/spacing/spacing_game_controler.gd" id="4_bw2xm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v0l8b"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -42,3 +43,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="Player_base" parent="." instance=ExtResource("2_bw2xm")]
 transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 0, 0, 10)
+
+[node name="game_controler" type="Node" parent="."]
+script = ExtResource("4_bw2xm")
+
+[node name="game_timer" type="Timer" parent="game_controler"]
+
+[connection signal="timeout" from="game_controler/game_timer" to="game_controler" method="_on_game_timer_timeout"]
