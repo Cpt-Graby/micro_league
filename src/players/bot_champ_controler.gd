@@ -4,6 +4,7 @@ var timer_move : float = 0.0
 var next_state_delay : float = 1.0 
 var init_point : Vector3 = Vector3.ZERO
 const delta_pos: int = 5
+const weight_map: float = 14
 
 var state : int = 0 
 # 0 = even
@@ -22,13 +23,11 @@ func _ready():
 
 
 func get_next_position(flag: int, pdelta: int, pos_init: Vector3, opp_pos: Vector3) -> Vector3:
-	var random_x
+	var random_x = randf_range(-14/2 + 1, 14.0/2 - 1)
 	var random_z
 	if flag == 0:
-		random_x = randf_range(pos_init.x - pdelta, pos_init.x + pdelta)
 		random_z = randf_range(pos_init.z - pdelta, pos_init.z + pdelta)
 	elif flag == 1:
-		random_x = randf_range(pos_init.x - pdelta, pos_init.z - 2 * pdelta)
 		random_z = randf_range(pos_init.z - pdelta, pos_init.z - 2 * pdelta)
 	else:
 		random_x = opp_pos.x
@@ -61,7 +60,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_navigation_agent_3d_target_reached():
-	print("target_reached")
+	print("target_reached ",navigation_agent.target_position, " :", state)
 	var new_position = get_next_position(state, delta_pos, init_point, Vector3(0,0,10))
 	navigation_agent.set_target_position(new_position)
 	pass

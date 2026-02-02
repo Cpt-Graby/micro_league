@@ -1,16 +1,6 @@
-[gd_scene load_steps=17 format=4 uid="uid://de7pe11swhrim"]
+[gd_scene load_steps=14 format=4 uid="uid://de7pe11swhrim"]
 
 [ext_resource type="Script" uid="uid://nn6s5o8pwh5e" path="res://src/players/bot_champ_controler.gd" id="1_qiyc0"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qiyc0"]
-render_priority = 1
-transparency = 1
-albedo_color = Color(1, 0, 0.25490198, 0.8117647)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_qiyc0"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_205dy"]
-albedo_color = Color(0.50980395, 1, 0.6627451, 0.654902)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vvnar"]
 
@@ -3902,18 +3892,6 @@ _data = {
 
 [node name="champion_base_bot" type="CharacterBody3D"]
 script = ExtResource("1_qiyc0")
-
-[node name="Attack_range" type="MeshInstance3D" parent="."]
-transform = Transform3D(20, 0, 0, 0, 0.3, 0, 0, 0, 20, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_qiyc0")
-transparency = 0.6
-mesh = SubResource("CylinderMesh_qiyc0")
-
-[node name="Attack_range2" type="MeshInstance3D" parent="."]
-transform = Transform3D(25, 0, 0, 0, 0.3, 0, 0, 0, 25, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_205dy")
-transparency = 0.6
-mesh = SubResource("CylinderMesh_qiyc0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

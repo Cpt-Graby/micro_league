@@ -2,7 +2,7 @@ extends Champion
 
 var target_pos : Vector3
 	# Standard value of minion 
-@onready var camera_3D: Camera3D = $"../Camera3D"
+@onready var camera_3D: Camera3D = %Camera3D
 @onready var ray_query = PhysicsRayQueryParameters3D.new()
 
 func _ready():

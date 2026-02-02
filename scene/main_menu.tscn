@@ -14,65 +14,62 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 21.0
-offset_top = -1.0
-offset_right = 21.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3er1b")
 
-[node name="Start spacing" type="Button" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -20.0
-offset_right = 100.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 0
+color = Color(0.09019608, 0, 0.13333334, 0.83137256)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Micro_league" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+text = "Micro League trainer"
+horizontal_alignment = 1
+
+[node name="ButtonVbox" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Start spacing" type="Button" parent="MarginContainer/VBoxContainer/ButtonVbox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0.03137255, 0.039215688, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_m4svf")
 text = "Start spacing Training"
 
-[node name="Quit" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = 40.0
-offset_right = 100.0
-offset_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 0
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/ButtonVbox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0.03137255, 0.039215688, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_m4svf")
 text = "Quit
 "
 
-[node name="Micro_league" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -80.5
-offset_top = -91.5
-offset_right = 80.5
-offset_bottom = -68.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Micro League trainer"
-
-[connection signal="pressed" from="Start spacing" to="." method="_on_start_spacing_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonVbox/Start spacing" to="." method="_on_start_spacing_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonVbox/Quit" to="." method="_on_quit_pressed"]

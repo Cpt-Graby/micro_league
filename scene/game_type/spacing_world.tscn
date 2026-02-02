@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bk4aartny6sr4"]
+[gd_scene load_steps=13 format=3 uid="uid://bk4aartny6sr4"]
 
 [ext_resource type="PackedScene" uid="uid://b71cx6s8jeioy" path="res://scene/maps/spacing_lane.tscn" id="1_j1ndk"]
 [ext_resource type="PackedScene" uid="uid://ntmb18ykvd7m" path="res://scene/players/player_base.tscn" id="2_bw2xm"]
@@ -16,11 +16,31 @@ sky_material = SubResource("ProceduralSkyMaterial_v0l8b")
 background_mode = 2
 sky = SubResource("Sky_wp4xf")
 tonemap_mode = 2
-glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.46700174, 0.52442706, 0.8298704, 1)
+fog_density = 0.0065
+fog_sky_affect = 0.385
+fog_height = -2.0
+fog_height_density = 0.1464
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_j1ndk"]
 vertices = PackedVector3Array(-6, 0.5, -34.5, -6, 0.5, 34.5, 6.25, 0.5, 34.5, 6.25, 0.5, -34.5)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bw2xm"]
+font_size = 56
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.99215686)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1020f"]
+font_size = 32
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bw2xm"]
+albedo_color = Color(0.7419852, 0.06325107, 0.27940747, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bw2xm"]
 
 [node name="Spacing_word" type="Node"]
 
@@ -32,21 +52,70 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5, 0)
 fov = 50.0
 
 [node name="spacing_lane" parent="." instance=ExtResource("1_j1ndk")]
 navigation_mesh = SubResource("NavigationMesh_j1ndk")
 
-[node name="champion_base_bot" parent="." instance=ExtResource("3_1020f")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -10)
-
-[node name="Player_base" parent="." instance=ExtResource("2_bw2xm")]
-transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 0, 0, 10)
-
 [node name="game_controler" type="Node" parent="."]
 script = ExtResource("4_bw2xm")
 
 [node name="game_timer" type="Timer" parent="game_controler"]
+unique_name_in_owner = true
+
+[node name="score" type="Label" parent="game_controler"]
+unique_name_in_owner = true
+offset_right = 251.0
+offset_bottom = 77.0
+label_settings = SubResource("LabelSettings_bw2xm")
+
+[node name="time_remaining" type="Label" parent="game_controler"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.5
+offset_right = 125.5
+offset_bottom = 77.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_bw2xm")
+
+[node name="end_message" type="Label" parent="game_controler"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Finished !!!
+You're going back to the menu in a few seconds"
+label_settings = SubResource("LabelSettings_1020f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="champion_base_bot" parent="game_controler" instance=ExtResource("3_1020f")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -10)
+
+[node name="min_range_mesh" type="MeshInstance3D" parent="game_controler/champion_base_bot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_bw2xm")
+mesh = SubResource("CylinderMesh_bw2xm")
+
+[node name="max_range_mesh" type="MeshInstance3D" parent="game_controler/champion_base_bot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.05, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_bw2xm")
+
+[node name="Player_base" parent="game_controler" instance=ExtResource("2_bw2xm")]
+transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 0, 0, 10)
 
 [connection signal="timeout" from="game_controler/game_timer" to="game_controler" method="_on_game_timer_timeout"]
