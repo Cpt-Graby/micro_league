@@ -29,7 +29,7 @@ func _ready():
 	animation_player.set_blend_time("walk", "idle", 0.2)
 	pass
 
-func _on_velocity_computed(safe_velocity: Vector3):
+func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	if safe_velocity != Vector3.ZERO:
 		walking = true
 		animation_player.play("walk")

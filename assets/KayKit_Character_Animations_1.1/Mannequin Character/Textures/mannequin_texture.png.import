@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgfnwo5f1o380"
 path.s3tc="res://.godot/imported/mannequin_texture.png-70eae2a79e2189c97e1f78cd009bca99.s3tc.ctex"
+path.etc2="res://.godot/imported/mannequin_texture.png-70eae2a79e2189c97e1f78cd009bca99.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/KayKit_Character_Animations_1.1/Mannequin Character/Textures/mannequin_texture.png"
-dest_files=["res://.godot/imported/mannequin_texture.png-70eae2a79e2189c97e1f78cd009bca99.s3tc.ctex"]
+dest_files=["res://.godot/imported/mannequin_texture.png-70eae2a79e2189c97e1f78cd009bca99.s3tc.ctex", "res://.godot/imported/mannequin_texture.png-70eae2a79e2189c97e1f78cd009bca99.etc2.ctex"]
 
 [params]
 

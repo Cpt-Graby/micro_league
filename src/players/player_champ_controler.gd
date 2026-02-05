@@ -19,6 +19,9 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if Input.is_action_just_pressed("move_click"):
 			move_to_click()
+	if Input.is_action_just_pressed("stop_motion"):
+		navigation_agent.set_target_position(position)
+
 
 func init_stats() -> void:
 	# Standard value of minion 

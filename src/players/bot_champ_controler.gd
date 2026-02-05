@@ -15,10 +15,10 @@ var state : int = 0
 func _ready():
 	super._ready()
 	type = "bot"
+	print(type, " " , position)
 	stats = preload("res://data/sorakaData.tres")
 	state = 0
-	var new_position = get_next_position(state, delta_pos, init_point, Vector3(0,0,10))
-	navigation_agent.set_target_position(new_position)
+	navigation_agent.set_target_position(Vector3(0,0,-10))
 	pass
 
 
@@ -28,9 +28,8 @@ func get_next_position(flag: int, pdelta: int, pos_init: Vector3, opp_pos: Vecto
 	if flag == 0:
 		random_z = randf_range(pos_init.z - pdelta, pos_init.z + pdelta)
 	elif flag == 1:
-		random_z = randf_range(pos_init.z - pdelta, pos_init.z - 2 * pdelta)
+		random_z = randf_range(pos_init.z - 2 * pdelta, pos_init.z - pdelta)
 	else:
-		random_x = opp_pos.x
 		random_z = opp_pos.z
 	return Vector3(random_x, 0, random_z)
 
@@ -57,12 +56,9 @@ func _process(delta: float) -> void:
 		timer_move = 0.0
 		next_state_delay = randf_range(1.0, 4.0)
 		#print_state()
-	pass
-
-func _on_navigation_agent_3d_target_reached():
-	print("target_reached ",navigation_agent.target_position, " :", state)
-	var new_position = get_next_position(state, delta_pos, init_point, Vector3(0,0,10))
-	navigation_agent.set_target_position(new_position)
+	elif navigation_agent.is_target_reached():
+		var new_position = get_next_position(state, delta_pos, init_point, Vector3(0,0,10))
+		navigation_agent.set_target_position(new_position)
 	pass
 
 
