@@ -11,7 +11,6 @@ func _ready():
 	camera_3D.global_position = $camera_marker.global_position
 	camera_3D.look_at(transform.origin,Vector3.UP)
 	type = 'player'
-	print(type, " " , position)
 	init_stats()
 	pass
 
